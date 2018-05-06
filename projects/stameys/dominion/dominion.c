@@ -1296,13 +1296,13 @@ int cardAdventurer(int currentPlayer, int drawntreasure, int *cardDrawn, int *te
   	if (*cardDrawn == copper || *cardDrawn == silver || *cardDrawn == gold)
      drawntreasure++;
   	else{
-  	  temphand[z]=*cardDrawn;
+  	  temphand[z]=*cardDrawn; 
   	  state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
   	  z++;
   	}
   }
   while(z-1>=0){
-	 state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
+	 state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1];  // discard all cards in play that have been drawn
 	 z=z-1;
   }
   return 0;	
@@ -1345,21 +1345,21 @@ int cardCouncil_room(int currentPlayer, int handPos, struct gameState *state){
 int cardRemodel(int currentPlayer, int choice1, int choice2, int handPos, struct gameState *state){
 	int i, j;
 	
-    j = state->hand[currentPlayer][choice1];  //store card we will trash
+  j = state->hand[currentPlayer][choice1];  //store card we will trash
 
-    if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
-    //if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(state->hand[currentPlayer][choice2]))
-  	{
-  	  return -1;
-  	}
+  if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
+  //if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(state->hand[currentPlayer][choice2]))
+	{
+	  return -1;
+	}
 
-      gainCard(choice2, state, 0, currentPlayer);
+  gainCard(choice2, state, 0, currentPlayer);
 
-      //discard card from hand
-      discardCard(handPos, currentPlayer, state, 0);
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
 
-      //discard trashed card
-      for (i = 0; i < state->handCount[currentPlayer]; i++)
+  //discard trashed card
+  for (i = 0; i < state->handCount[currentPlayer]; i++)
 	{
 	  if (state->hand[currentPlayer][i] == j)
 	    {
@@ -1367,7 +1367,7 @@ int cardRemodel(int currentPlayer, int choice1, int choice2, int handPos, struct
 	      break;
 	    }
 	}
-      return 0;	
+  return 0;	
 	
 }
 
